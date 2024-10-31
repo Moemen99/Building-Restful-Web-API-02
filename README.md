@@ -294,3 +294,154 @@ https://docs.example.com/guide#installation-steps
 
 ---
 *Note: Understanding URI structure is crucial for web development and API design.*
+
+
+
+# HTTP vs HTTPS: Web Security Fundamentals
+
+## Protocol Comparison
+
+```mermaid
+graph TB
+    subgraph HTTP
+    A[HTTP] --> B[Port 80]
+    A --> C[Plain Text]
+    A --> D[No Encryption]
+    end
+    
+    subgraph HTTPS
+    E[HTTPS] --> F[Port 443]
+    E --> G[Encrypted]
+    E --> H[SSL/TLS]
+    end
+```
+
+### HTTP (Hypertext Transfer Protocol)
+- Default port: 80
+- Plain text communication
+- No built-in security
+- Vulnerable to:
+  - Data interception
+  - Man-in-the-middle attacks
+  - Data manipulation
+
+### HTTPS (HTTP Secure)
+- Default port: 443
+- Encrypted communication
+- Uses SSL/TLS
+- 'S' stands for Secure
+
+## HTTPS Security Features
+
+```mermaid
+graph TD
+    A[HTTPS Security] --> B[Encryption]
+    A --> C[Data Integrity]
+    A --> D[Authentication]
+    
+    B --> B1[Protects sensitive data]
+    C --> C1[Prevents data tampering]
+    D --> D1[Verifies server identity]
+```
+
+### 1. Encryption
+- Protects data during transmission
+- Prevents unauthorized access
+- Makes data unreadable to interceptors
+
+### 2. Data Integrity
+- Ensures data hasn't been modified
+- Detects tampering attempts
+- Maintains data authenticity
+
+### 3. Authentication
+- Verifies server identity
+- Uses digital certificates
+- Prevents impersonation attacks
+
+## SSL/TLS Process
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+    
+    Note over Client,Server: SSL/TLS Handshake
+    Client->>Server: Client Hello
+    Server->>Client: Server Hello + Certificate
+    Client->>Server: Key Exchange
+    Server->>Client: Finished
+    
+    Note over Client,Server: Secure Communication
+    Client->>Server: Encrypted Request
+    Server->>Client: Encrypted Response
+```
+
+### SSL (Secure Sockets Layer)
+- Original security protocol
+- Predecessor to TLS
+- Now considered deprecated
+
+### TLS (Transport Layer Security)
+- Modern improvement of SSL
+- Current standard for secure communication
+- More secure and efficient
+
+## Key Exchange Process
+
+```mermaid
+graph LR
+    A[Client with Key] -->|Encrypted Data| B[Server with Key]
+    B -->|Encrypted Response| A
+```
+
+### How It Works
+1. Server obtains SSL/TLS certificate
+2. Client and server establish shared key
+3. Both use same key for:
+   - Request encryption
+   - Response encryption
+   - Data decryption
+
+## Security Benefits
+
+### 1. Protected Data Types
+- Login credentials
+- Payment information
+- Personal data
+- Session tokens
+- Cookies
+
+### 2. Business Benefits
+- Customer trust
+- SEO advantages
+- Regulatory compliance
+- Brand protection
+
+## Best Practices
+
+1. **Certificate Management**
+   - Keep certificates up to date
+   - Use trusted certificate authorities
+   - Implement proper renewal procedures
+
+2. **Security Configuration**
+   - Enable HSTS
+   - Use secure cipher suites
+   - Configure proper TLS versions
+
+3. **Monitoring**
+   - Regular security audits
+   - Certificate expiration monitoring
+   - Security vulnerability scanning
+
+## Implementation Checklist
+- [ ] Obtain SSL/TLS certificate
+- [ ] Configure web server for HTTPS
+- [ ] Set up automatic certificate renewal
+- [ ] Implement HTTPS redirects
+- [ ] Test secure connection
+- [ ] Monitor security status
+
+---
+*Note: HTTPS is crucial for protecting sensitive data and maintaining user trust in web applications.*
