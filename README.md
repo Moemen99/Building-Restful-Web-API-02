@@ -162,3 +162,135 @@ Content-Type: application/json
 
 ---
 *Note: Understanding HTTP methods and status codes is crucial for building robust and reliable web applications and APIs.*
+
+
+
+
+# URI (Uniform Resource Identifier) Structure
+
+## Basic Structure
+
+```mermaid
+graph LR
+    URI --> Mandatory[Mandatory Components]
+    URI --> Optional[Optional Components]
+    
+    Mandatory --> A[Scheme]
+    Mandatory --> B[Authority]
+    
+    Optional --> C[Path]
+    Optional --> D[Query]
+    Optional --> E[Fragment]
+```
+
+## Components Breakdown
+
+### Mandatory Components
+
+#### 1. Scheme
+- Defines protocol for server communication
+- Common schemes:
+  - `http://` (standard)
+  - `https://` (secure)
+- Always ends with `://`
+- Automatically added by browsers
+- Visible when URI is copied
+
+#### 2. Authority
+- Format: `hostname[:port]`
+- Examples:
+  - Development: `localhost:3000`
+  - Production: `www.example.com`
+- Separated from scheme by `://`
+
+```mermaid
+graph TD
+    A[URI Example] --> B[https://www.example.com/path]
+    B --> C[Scheme: https://]
+    B --> D[Authority: www.example.com]
+```
+
+### Optional Components
+
+#### 1. Path
+- Follows authority
+- Can have multiple segments
+- Example: `/users/profile/settings`
+- Used to identify specific resources
+
+#### 2. Query String
+- Starts with `?`
+- Format: `key=value`
+- Multiple parameters joined by `&`
+- Example: `?year=2024&month=1`
+
+#### 3. Fragment
+- Starts with `#`
+- Used for page navigation
+- Points to specific HTML section
+- Example: `#section-1`
+
+## Example URIs
+
+### Basic URI
+```
+https://www.devcreed.com/courses/add
+└─┬──┘ └─────┬─────┘ └───┬───┘
+  │          │          │
+Scheme   Authority     Path
+```
+
+### Complex URI with All Components
+```
+https://www.devcreed.com/courses?year=2024&month=1#api-course
+└─┬──┘ └─────┬─────┘ └─┬─┘ └─────┬─────┘ └───┬──┘
+  │          │         │         │           │
+Scheme   Authority   Path      Query     Fragment
+```
+
+## Common Use Cases
+
+### Development Environment
+```
+http://localhost:3000/api/users
+```
+
+### Production Environment
+```
+https://www.example.com/api/users
+```
+
+### With Query Parameters
+```
+https://api.example.com/products?category=electronics&sort=price
+```
+
+### With Fragment
+```
+https://docs.example.com/guide#installation-steps
+```
+
+## Best Practices
+
+1. **Security**
+   - Use HTTPS when possible
+   - Be careful with sensitive data in URLs
+
+2. **Query Parameters**
+   - Use meaningful parameter names
+   - Encode special characters
+   - Keep URLs reasonably short
+
+3. **Path Structure**
+   - Use logical hierarchy
+   - Follow RESTful conventions
+   - Use lowercase letters
+   - Use hyphens for spaces
+
+4. **Fragment Usage**
+   - Use for page navigation
+   - Keep identifiers meaningful
+   - Consider SEO implications
+
+---
+*Note: Understanding URI structure is crucial for web development and API design.*
