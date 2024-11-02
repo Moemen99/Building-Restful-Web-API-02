@@ -445,3 +445,184 @@ graph LR
 
 ---
 *Note: HTTPS is crucial for protecting sensitive data and maintaining user trust in web applications.*
+
+
+# REST (Representational State Transfer)
+
+## Overview
+
+```mermaid
+graph TD
+    REST[REST Architecture] --> A[Stateless]
+    REST --> B[Client-Server]
+    REST --> C[Uniform Interface]
+    REST --> D[Cacheability]
+    REST --> E[Layered System]
+    REST --> F[Code on Demand<br/>(Optional)]
+```
+
+## Core Principles
+
+### 1. Stateless
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+    Note over Client,Server: Each request contains all needed information
+    Client->>Server: Complete Request with Auth + Data
+    Server->>Client: Response
+    Note over Client,Server: No session state maintained
+```
+
+#### Key Points:
+- Each request must be self-contained
+- Server doesn't store client session information
+- All information needed for processing included in request
+- No dependency on previous requests
+
+### 2. Client-Server Separation
+```mermaid
+graph LR
+    subgraph Client
+    A[Frontend] --> B[URI Knowledge]
+    A --> C[Data Format]
+    end
+    
+    subgraph Server
+    D[Backend] --> E[Processing Logic]
+    D --> F[Implementation Details]
+    end
+```
+
+#### Characteristics:
+- Independent evolution of client and server
+- Client only needs to know:
+  - Resource URIs
+  - Data formats
+  - Required parameters
+- Implementation details hidden from client
+
+### 3. Uniform Interface
+
+```mermaid
+graph TD
+    UI[Uniform Interface] --> A[Resource Identification]
+    UI --> B[Resource Manipulation]
+    UI --> C[Self-Descriptive Messages]
+    UI --> D[HATEOAS]
+```
+
+#### A. Resource Identification
+- Every resource has unique URI
+- Clear naming conventions
+- Consistent addressing scheme
+
+#### B. Resource Manipulation
+- Standard methods (GET, POST, PUT, DELETE)
+- Clear representation formats
+- Client understanding of manipulation capabilities
+
+#### C. Self-Descriptive Messages
+```json
+{
+  "id": 123,
+  "type": "order",
+  "status": "pending",
+  "actions": ["cancel", "update"],
+  "links": {
+    "self": "/orders/123",
+    "update": "/orders/123/update"
+  }
+}
+```
+
+#### D. HATEOAS
+```json
+{
+  "order": {
+    "id": 123,
+    "_links": {
+      "cancel": {"href": "/orders/123/cancel"},
+      "update": {"href": "/orders/123/update"},
+      "payment": {"href": "/orders/123/payment"}
+    }
+  }
+}
+```
+
+### 4. Cacheability
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+    Server->>Client: Response with Cache Headers
+    Note right of Client: Cache-Control: max-age=3600
+    Note right of Client: Client caches response
+```
+
+#### Features:
+- Server defines cache policies
+- Client can implement caching
+- Cache headers in responses
+- Performance optimization
+
+### 5. Layered System
+```mermaid
+graph TD
+    Client --> Gateway[API Gateway]
+    Gateway --> LoadBalancer[Load Balancer]
+    LoadBalancer --> API1[API Server 1]
+    LoadBalancer --> API2[API Server 2]
+    API1 --> DB[Database]
+    API2 --> DB
+    API1 --> Auth[Auth Server]
+    API2 --> Auth
+```
+
+#### Benefits:
+- Scalability
+- Security
+- Load balancing
+- Microservices architecture
+- Separation of concerns
+
+### 6. Code on Demand (Optional)
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+    Client->>Server: Request Resource
+    Server->>Client: Response with Executable Code
+    Note right of Client: Client executes received code
+```
+
+#### Characteristics:
+- Optional constraint
+- Server can send executable code
+- Client-side execution
+- Rarely implemented
+
+## Best Practices
+
+1. **API Design**
+   - Use meaningful URIs
+   - Implement proper HTTP methods
+   - Maintain consistent response formats
+
+2. **Security**
+   - Implement authentication
+   - Use HTTPS
+   - Validate all inputs
+
+3. **Performance**
+   - Implement caching
+   - Optimize response size
+   - Use compression
+
+4. **Documentation**
+   - Clear API documentation
+   - Example requests/responses
+   - Error handling guidelines
+
+---
+*Note: Understanding REST principles is crucial for building scalable and maintainable web APIs.*
