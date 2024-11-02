@@ -458,7 +458,7 @@ graph TD
     REST --> C[Uniform Interface]
     REST --> D[Cacheability]
     REST --> E[Layered System]
-    REST --> F[Code on Demand (Optional)]
+    REST --> F[Code on Demand Optional]
 ```
 
 ## Core Principles
