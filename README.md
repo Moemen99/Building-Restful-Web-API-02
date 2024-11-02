@@ -458,7 +458,7 @@ graph TD
     REST --> C[Uniform Interface]
     REST --> D[Cacheability]
     REST --> E[Layered System]
-    REST --> F[Code on Demand<br/>(Optional)]
+    REST --> F[Code on Demand (Optional)]
 ```
 
 ## Core Principles
@@ -536,7 +536,7 @@ graph TD
 }
 ```
 
-#### D. HATEOAS
+#### D. Hypermedia as the Engine of Application state  (HATEOAS)
 ```json
 {
   "order": {
