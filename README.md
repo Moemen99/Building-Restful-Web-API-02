@@ -626,3 +626,180 @@ sequenceDiagram
 
 ---
 *Note: Understanding REST principles is crucial for building scalable and maintainable web APIs.*
+
+
+# REST API URL Naming Conventions
+
+## Basic Principles
+
+```mermaid
+graph TD
+    A[API URL Structure] --> B[Use Nouns]
+    A --> C[Avoid Verbs]
+    A --> D[Use Plurals]
+    A --> E[Hierarchical Resources]
+    
+    B --> B1[orders vs getOrders]
+    C --> C1[HTTP verbs define action]
+    D --> D1[/orders vs /order]
+    E --> E1[/orders/{orderId}/items]
+```
+
+## ❌ Incorrect vs ✅ Correct Patterns
+
+### Collection Resources
+
+#### Getting All Orders
+❌ Incorrect:
+```
+GET /getOrders
+GET /getAllOrders
+GET /orderList
+```
+
+✅ Correct:
+```
+GET /orders
+```
+
+### Single Resource
+
+#### Getting Specific Order
+❌ Incorrect:
+```
+GET /getOrder/{id}
+GET /order/get/{id}
+GET /fetchOrder/{id}
+```
+
+✅ Correct:
+```
+GET /orders/{id}
+```
+
+### Creating Resources
+
+#### Creating New Order
+❌ Incorrect:
+```
+POST /createOrder
+POST /orders/create
+POST /addOrder
+```
+
+✅ Correct:
+```
+POST /orders
+```
+
+## Resource Hierarchy Examples
+
+### Orders and Items Relationship
+
+```mermaid
+graph TD
+    A[Orders Collection] --> B[Single Order]
+    B --> C[Items Collection]
+    C --> D[Single Item]
+    
+    A --GET--> |/orders| AA[List Orders]
+    B --GET--> |/orders/{orderId}| BB[Get Order]
+    C --GET--> |/orders/{orderId}/items| CC[List Items]
+    D --GET--> |/orders/{orderId}/items/{itemId}| DD[Get Item]
+```
+
+### Complete Resource Patterns
+
+#### Orders Resource
+| HTTP Method | URL Pattern | Action |
+|------------|-------------|---------|
+| GET | `/orders` | List all orders |
+| POST | `/orders` | Create new order |
+| GET | `/orders/{id}` | Get specific order |
+| PUT | `/orders/{id}` | Update specific order |
+| DELETE | `/orders/{id}` | Delete specific order |
+
+#### Order Items Resource
+| HTTP Method | URL Pattern | Action |
+|------------|-------------|---------|
+| GET | `/orders/{orderId}/items` | List all items in order |
+| POST | `/orders/{orderId}/items` | Add item to order |
+| GET | `/orders/{orderId}/items/{itemId}` | Get specific item |
+| PUT | `/orders/{orderId}/items/{itemId}` | Update specific item |
+| DELETE | `/orders/{orderId}/items/{itemId}` | Delete specific item |
+
+## Best Practices
+
+### 1. Use Plural Nouns
+```
+/orders instead of /order
+/users instead of /user
+/products instead of /product
+```
+
+### 2. Use Resource Identifiers
+```
+/orders/{orderId}
+/users/{userId}
+/products/{productId}
+```
+
+### 3. Represent Hierarchical Relationships
+```
+/orders/{orderId}/items
+/users/{userId}/addresses
+/products/{productId}/variants
+```
+
+### 4. Keep URLs Simple and Readable
+✅ Good:
+```
+GET /orders
+GET /orders/{orderId}
+GET /orders/{orderId}/items
+```
+
+❌ Bad:
+```
+GET /get-all-orders
+GET /order-management/get/{id}
+GET /order-items-list/{orderId}
+```
+
+### 5. Use Query Parameters for Filtering
+```
+GET /orders?status=pending
+GET /orders?createDate=2024-01-01
+GET /orders?sort=date&direction=desc
+```
+
+## Common Patterns
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant API
+    
+    Client->>API: GET /orders
+    Note right of Client: List all orders
+    
+    Client->>API: POST /orders
+    Note right of Client: Create new order
+    
+    Client->>API: GET /orders/{id}
+    Note right of Client: Get specific order
+    
+    Client->>API: GET /orders/{id}/items
+    Note right of Client: List items in order
+```
+
+## Guidelines Summary
+1. Use nouns, not verbs
+2. Use plural form for collections
+3. Use hierarchy for related resources
+4. Keep URLs simple and consistent
+5. Use query parameters for filtering/sorting
+6. Follow HTTP method semantics
+
+---
+*Note: Consistent URL naming is crucial for creating intuitive and maintainable APIs.*
