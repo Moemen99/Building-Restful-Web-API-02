@@ -639,10 +639,17 @@ graph TD
     A --> D[Use Plurals]
     A --> E[Hierarchical Resources]
     
-    B --> B1[ordersvsgetOrders]
-    C --> C1[HTTP verbs define action]
-    D --> D1[/ordersvs/order]
-    E --> E1[/orders/{orderId}/items]
+    B --> B1["✅ /orders"]
+    B --> B2["❌ /getOrders"]
+    
+    C --> C1["✅ GET /orders"]
+    C --> C2["❌ POST /createOrder"]
+    
+    D --> D1["✅ /orders/{orderId}"]
+    D --> D2["❌ /order/{orderId}"]
+    
+    E --> E1["✅ /orders/{orderId}/items"]
+    E --> E2["✅ /orders/{orderId}/items/{itemId}"]
 ```
 
 ## ❌ Incorrect vs ✅ Correct Patterns
