@@ -705,14 +705,20 @@ POST /orders
 
 ```mermaid
 graph TD
-    A[Orders Collection] --> B[Single Order]
-    B --> C[Items Collection]
-    C --> D[Single Item]
+    A[Orders Collection] -->|GET /orders| AA[List Orders]
+    A -->|GET /orders/{orderId}| B[Single Order]
+    B -->|GET /orders/{orderId}/items| C[Items Collection]
+    C -->|GET /orders/{orderId}/items/{itemId}| D[Single Item]
     
-    A --GET--> |/orders| AA[List Orders]
-    B --GET--> |/orders/{orderId}| BB[Get Order]
-    C --GET--> |/orders/{orderId}/items| CC[List Items]
-    D --GET--> |/orders/{orderId}/items/{itemId}| DD[Get Item]
+    AA -->|"Response: [Order List]"| AA1[["Multiple Orders"]]
+    B -->|"Response: Order Details"| B1[["Single Order Data"]]
+    C -->|"Response: [Items List]"| C1[["Order Items"]]
+    D -->|"Response: Item Details"| D1[["Single Item Data"]]
+
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#fbf,stroke:#333,stroke-width:2px
+    style D fill:#bfb,stroke:#333,stroke-width:2px
 ```
 
 ### Complete Resource Patterns
