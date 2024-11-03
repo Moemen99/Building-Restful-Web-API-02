@@ -704,21 +704,29 @@ POST /orders
 ### Orders and Items Relationship
 
 ```mermaid
-graph TD
-    A[Orders Collection] -->|GET /orders| AA[List Orders]
-    A -->|GET /orders/{orderId}| B[Single Order]
-    B -->|GET /orders/{orderId}/items| C[Items Collection]
-    C -->|GET /orders/{orderId}/items/{itemId}| D[Single Item]
-    
-    AA -->|"Response: [Order List]"| AA1[["Multiple Orders"]]
-    B -->|"Response: Order Details"| B1[["Single Order Data"]]
-    C -->|"Response: [Items List]"| C1[["Order Items"]]
-    D -->|"Response: Item Details"| D1[["Single Item Data"]]
+sequenceDiagram
+    participant Client
+    participant API
 
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#fbf,stroke:#333,stroke-width:2px
-    style D fill:#bfb,stroke:#333,stroke-width:2px
+    %% Orders Collection
+    Client->>API: GET /orders
+    API->>Client: Response: [Order List]
+    Note over Client,API: List of Multiple Orders
+
+    %% Single Order
+    Client->>API: GET /orders/{orderId}
+    API->>Client: Response: Order Details
+    Note over Client,API: Single Order Data
+
+    %% Items Collection
+    Client->>API: GET /orders/{orderId}/items
+    API->>Client: Response: [Items List]
+    Note over Client,API: List of Order Items
+
+    %% Single Item
+    Client->>API: GET /orders/{orderId}/items/{itemId}
+    API->>Client: Response: Item Details
+    Note over Client,API: Single Item Data
 ```
 
 ### Complete Resource Patterns
