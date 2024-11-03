@@ -639,9 +639,9 @@ graph TD
     A --> D[Use Plurals]
     A --> E[Hierarchical Resources]
     
-    B --> B1[orders vs getOrders]
+    B --> B1[ordersvsgetOrders]
     C --> C1[HTTP verbs define action]
-    D --> D1[/orders vs /order]
+    D --> D1[/ordersvs/order]
     E --> E1[/orders/{orderId}/items]
 ```
 
